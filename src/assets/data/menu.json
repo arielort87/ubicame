@@ -1,0 +1,7 @@
+[
+    {
+        "icon": "settings-outline",
+        "name": "Configuración",
+        "redirecTo":"/config"
+    }
+]

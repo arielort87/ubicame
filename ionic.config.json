@@ -1,0 +1,7 @@
+{
+  "name": "ubicame",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
