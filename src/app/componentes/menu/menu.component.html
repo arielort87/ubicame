@@ -1,17 +1,23 @@
 <ion-menu side="end" menuId="menu" contentId="main">
-  <ion-header>
-    <ion-toolbar color="primary">
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
   <ion-content>
-    <ion-list>
-      <ion-menu-toggle *ngFor="let c of componentes | async">
-        <ion-item [routerLink]="c.redirecTo">
-          <ion-icon slot="start" name="{{c.icon}}"></ion-icon>
-          <ion-label>{{ c.name }}</ion-label>
+      <div class="menu-header-bg"></div>
+      <div class="header-content">        
+        <ion-label>
+          <h2>Ariel Andres</h2>
+          <p>Ortega Garcia</p>
+        </ion-label>
+        <img src="../../../assets/images/user.png" alt="">
+      </div>
+
+      <ion-list class="menu-items" lines="none">
+        <ion-menu-toggle *ngFor="let c of componentes | async">
+          <ion-item [routerLink]="c.redirecTo">
+            <ion-icon slot="start" name="{{c.icon}}"></ion-icon>{{ c.name }}
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-item class="active"> 
+          <ion-icon name="flash"></ion-icon>flashh
         </ion-item>
-      </ion-menu-toggle>
-    </ion-list>
+      </ion-list>
   </ion-content>
 </ion-menu>

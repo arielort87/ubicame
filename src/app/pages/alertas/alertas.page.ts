@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AutosService } from '../../services/autos.service';
 
 @Component({
   selector: 'app-alertas',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AlertasPage implements OnInit {
 
-  constructor() { }
+  constructor( private infAut:AutosService ) { }
 
   ngOnInit() {
+  }
+  alertas:any[];
+  getAlert(){
+    this.infAut.getAlert("ST300EMG",1).subscribe((data:any)=>
+    {
+      this.alertas = data;
+    },
+    (error)=>{ console.error(error)}
+    )
   }
 
 }
