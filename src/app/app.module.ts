@@ -11,10 +11,12 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { ComponentsModule } from './componentes/components.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule,ComponentsModule,HttpClientModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule,ComponentsModule,HttpClientModule, IonicModule.forRoot(), AppRoutingModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
   providers: [
     StatusBar,
     SplashScreen,

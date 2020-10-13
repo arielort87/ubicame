@@ -12,4 +12,8 @@ export class InfouserService {
   getMenu(){
     return this.http.get<Componente[]>('/assets/data/menu.json')
   }
+
+  user(){
+    return "ariel Ortega"
+  }
 }
