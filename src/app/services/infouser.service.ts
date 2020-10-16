@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, } from '@angular/common/http';
 import { Componente } from '../interfaces/interfaces';
 
 @Injectable({
@@ -13,7 +13,12 @@ export class InfouserService {
     return this.http.get<Componente[]>('/assets/data/menu.json')
   }
 
-  user(){
-    return "ariel Ortega"
+  user(postData){
+    const headers = new HttpHeaders().set('Content-Type', 'application/json')
+                                    .set('Accept', 'application/json')
+                                    .set('Access-Control-Allow-Methods', 'POST')
+
+    return this.http.post("http://45.79.30.197/api/auth/signin", postData, { headers: headers })
   }
+  
 }

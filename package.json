@@ -4,6 +4,7 @@
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
   "scripts": {
+    "build": "command-to-build (ex: webpack, tsc, babel, etc.)",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",

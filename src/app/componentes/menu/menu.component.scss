@@ -2,8 +2,8 @@
     height: 180px;
     width: 350px;
     background: #e5ecf1;
-    background: linear-gradient(90deg,#e5ecf1 0%, #879ba8 100%);
-    box-shadow: 0px 1px 10px rgba(98, 140, 255, 0.5);
+    background: linear-gradient(90deg,#f8d4d1 0%, #de2a1b 100%);
+    box-shadow: 0px 1px 10px rgba(255, 98, 98, 0.5);
     transform: rotate(15deg);
     border-radius: 10px 10px 70px 10px;
     margin-left: -30px;
@@ -22,7 +22,7 @@
         width: 80px;
         height: 80px;
         border-radius: 50%;
-        border: 7px solid #a1b3c0;
+        border: 7px solid #c0a1a1;
     }
     h2{
         font-weight: 300;
@@ -62,4 +62,16 @@
             color:#3880ff;
         }
     }
+}
+
+.contentbtn{
+    position: absolute;
+    top: 110px;
+    padding: 10px;
+}
+.btnexit{
+    color: #fff;
+    background-color: #e24336;
+    padding: 14px;
+    border-radius: 50px;
 }

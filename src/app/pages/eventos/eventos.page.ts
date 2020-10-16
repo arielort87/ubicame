@@ -12,11 +12,25 @@ export class EventosPage implements OnInit {
     this.traerEvent();
   }
 
-  ngOnInit() {
+      ngOnInit() {
+        var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      });
+    }
   }
   eventos: any[];
   traerEvent(){
-    this.infAut.getEvents("20200930","ST300UEX").subscribe((data:any[])=>{
+    this.infAut.getEvents("20201013","ST300UEX").subscribe((data:any[])=>{
       this.eventos = data;
       console.log(data);
     },
@@ -24,6 +38,17 @@ export class EventosPage implements OnInit {
       console.error(error);
     }
     )
+  }
+
+  data:any[] = Array(20)
+
+  loadData(event){
+    console.log('cargando siguiente')
+    setTimeout(() => {
+      const  nuevoArr = Array(20)
+      this.data.push( ...nuevoArr );
+      event.target.complete();
+    }, 1000);
   }
 
 

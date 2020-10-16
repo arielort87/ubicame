@@ -25,4 +25,8 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-
+.menu-content-open {
+    cursor: pointer;
+    touch-action: manipulation;
+    pointer-events: auto !important;
+}

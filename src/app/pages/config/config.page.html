@@ -1,5 +1,24 @@
 <app-header titulo="CONFIGURACIÓN"></app-header>
 
-<ion-content>
+<ion-content> 
+    <div class="menu-header-bg"></div>
+    <div class="header-content">        
+      <ion-label>
+        <h2>Elvis</h2>
+        <p>Algarin</p>
+      </ion-label>
+      <img src="../../../assets/images/user.png" alt="">
+    </div>
 
+
+    <ion-list class="menu-items" lines="none">
+      <ion-menu-toggle>
+        <ion-item >
+          <ion-icon slot="start" name="settings-outline"></ion-icon>settings
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-item class="active"> 
+        <ion-icon name="flash"></ion-icon>flashh
+      </ion-item>
+    </ion-list>
 </ion-content>
