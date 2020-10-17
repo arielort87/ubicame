@@ -6,7 +6,7 @@ import { InicioPage } from './inicio.page';
 const routes: Routes = [
     {
       path:'',
-      redirectTo:'mapas' 
+      redirectTo:'eventos' 
     },
     {
     path: '',

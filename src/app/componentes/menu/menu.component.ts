@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { InfouserService } from '../../services/infouser.service';
 import { AutosService } from 'src/app/services/autos.service';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-menu',
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
 export class MenuComponent implements OnInit {
   componentes: Observable<Componente[]>
 
-  constructor( private dataservice: InfouserService, private router: Router, private validSe: AutosService ) { }
+  constructor( private menuCtrl: MenuController, private dataservice: InfouserService, private router: Router, private validSe: AutosService ) { }
   uname
   uape
   ngOnInit() {
@@ -24,16 +25,10 @@ export class MenuComponent implements OnInit {
 
   cerrars(){
     localStorage.clear();
-
+    this.menuCtrl.toggle();
     let token = localStorage.getItem('token');
     if(token != null){
-      this.validSe.getPosCar().subscribe((data:any[])=>{
         this.router.navigate(['/inicio'])
-      },
-      (error)=>{
-        console.error(error);
-      }
-    )
   }
   }
 

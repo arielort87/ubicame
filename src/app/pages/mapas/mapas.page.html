@@ -1,4 +1,18 @@
-<app-hherader name="MAPAS"></app-hherader>
+<ion-header >
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-button (click)="reca()">
+        <ion-icon name="reload-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleMenu()">
+        <ion-icon name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="light">Mapas</ion-title>
+  </ion-toolbar>
+</ion-header> 
 
 <ion-content>
   <div id="map" style="height:100%; width: 100%;"></div>

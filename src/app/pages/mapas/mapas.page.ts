@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 
 import * as L from 'leaflet'
 import { AutosService } from 'src/app/services/autos.service';
+import { MenuController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-mapas',
@@ -11,10 +12,19 @@ import { AutosService } from 'src/app/services/autos.service';
 })
 export class MapasPage implements OnInit {
 
-  constructor( private router:Router, private hubiCar: AutosService ) { this.traerVeh();}
+  constructor( private router:Router,private menuCtrl: MenuController,public loadingController: LoadingController , private hubiCar: AutosService ) { 
+    this.markdores = []; 
+    let token = localStorage.getItem('token');
+    if(token != null){
+      this.reca(); 
+    }else{
+      this.router.navigate(['/'])
+    }
+    }
   mapa:any
   traerVeh(){
     this.hubiCar.getPosCar().subscribe((data:any[])=>{
+      console.log(data);
       var map = L.map('map').setView([data[0].trama["lat"], data[0].trama["log"]], 12);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -23,15 +33,27 @@ export class MapasPage implements OnInit {
       this.prinMarker(data)
     })
   }
-  busicon = L.icon({
-      iconUrl: "../../../assets/images/marcadorbus.png",
+  busV = L.icon({
+      iconUrl: "../../../assets/images/marcadorbusV.png",
       iconSize:     [23, 28], // size of the icon
       iconAnchor:   [7, 29], // point of the icon which will correspond to marker's location
       popupAnchor:  [6, -29] // point from which the popup should open relative to the iconAnchor
   });
+  busR = L.icon({
+    iconUrl: "../../../assets/images/marcadorbusR.png",
+    iconSize:     [23, 28], // size of the icon
+    iconAnchor:   [7, 29], // point of the icon which will correspond to marker's location
+    popupAnchor:  [6, -29] // point from which the popup should open relative to the iconAnchor
+  });
+  busA = L.icon({
+    iconUrl: "../../../assets/images/marcadorbusA.png",
+    iconSize:     [23, 28], // size of the icon
+    iconAnchor:   [7, 29], // point of the icon which will correspond to marker's location
+    popupAnchor:  [6, -29] // point from which the popup should open relative to the iconAnchor
+  });
+  busicon
   markdores:any
   prinMarker(data:any){
-
     var arr = [];  
     
     if(this.markdores && this.markdores.length){
@@ -47,6 +69,13 @@ export class MapasPage implements OnInit {
       let mes = fecha.substr(4,2)
       let dia = fecha.substr(6,2)
       let ff = anio +'-'+ mes +'-'+ dia
+      if(data[i].trama['indmod'] == 1 ){
+        this.busicon = this.busR
+      }else if (data[i].trama['indmod'] == 2){
+        this.busicon = this.busV
+      }else{
+        this.busicon = this.busA
+      }
       let marker = L.marker([data[i].trama["lat"], data[i].trama["log"]], {icon: this.busicon}).addTo(this.mapa)
       .bindPopup(`<b>Interno: </b>${data[i].vehiculo["veh_interno"]}</br>
                   <b>Placa: </b>${data[i].vehiculo["veh_placa"]}</br>
@@ -61,17 +90,32 @@ export class MapasPage implements OnInit {
     //this.mapa.fitBounds(group.getBounds());
     this.recargarfun()
   }
-
+  async reca() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Espere...',
+      duration: 2000
+    });
+    await loading.present();
+    this.traerVeh()
+    const { role, data } = await loading.onDidDismiss();
+  }
   
-recargarfun() {
-  setInterval(()=>{
+  recargarfun() {
+    setInterval(()=>{
     this.hubiCar.getPosCar().subscribe((data:any[])=>{
       this.prinMarker(data)
+    },(error)=>{
+      console.error(error);
+      this.router.navigate(['/'])
     })
-  },3 * 100000);
-}
-  
-  ngOnInit() {   
+    },3 * 100000);
+  }
+  toggleMenu(){
+  this.menuCtrl.toggle();
+  }
+
+  ngOnInit() {  
   }
 
 }
