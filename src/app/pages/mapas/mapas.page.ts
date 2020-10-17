@@ -31,6 +31,7 @@ export class MapasPage implements OnInit {
     }).addTo(map);
     this.mapa = map
       this.prinMarker(data)
+      console.log('traervehicul', data)
     })
   }
   busV = L.icon({
