@@ -1,26 +1,15 @@
 <app-hherader name="Eventos"></app-hherader>
 
 <ion-content>
-<div class="row">
-  
-    <div class="tabs">
-      <div class="tab">
-        <input type="checkbox" id="chck1">
-        <label class="tab-label" for="chck1">Item 1</label>
-        <div class="tab-content">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, reiciendis!
-        </div>
-      </div>
+  <div class="">
+    
+    <div class="wrap-input">
+      <input class="input" type="password" name="text" placeholder="Contraseña">
+    </div><br>
+    <div class="wrap-input">
+      <ion-datetime displayFormat="YYYY/MM/DD" min="1994-03-14" class="dat" placeholder='Fecha' cancelText='Cancelar' [ngModel]='fecha.toISOString()'></ion-datetime>
     </div>
-</div>
-
-    <ion-infinite-scroll threshold="150px" 
-                         (ionInfinite)="loadData($event)">
-        <ion-infinite-scroll-content
-          loadingSpinner="crescent"
-          loadingText="Loading more data...">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+  </div>
 
 
 </ion-content>

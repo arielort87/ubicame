@@ -1,87 +1,56 @@
-$midnight: #f8d4d1;
-$clouds: #ecf0f1;
-// General
-body {
-  color: $midnight;
-  background: $clouds;
-  padding: 0 1em 1em;
-}
-h1 {
-  margin: 0;
-  line-height: 2;
-  text-align: center;
-}
-h2 {
-  margin: 0 0 .5em;
-  font-weight: normal;
-}
-input {
-  position: absolute;
-  opacity: 0;
-  z-index: -1;
-}
-.row{
-  padding-bottom: 3px;
-}
-/* Accordion styles */
-.tabs {
-  border-radius: 0px;
-  overflow: hidden;
-  box-shadow: 0 4px 4px -2px rgba(0,0,0,0.5);
-}
-.tab {
-  width: 100%;
-  color: white;
-  overflow: hidden;
-  &-label {
-    display: flex;
-    justify-content: space-between;
-    padding: 1em;
-    background: $midnight;
-    font-weight: bold;
-    cursor: pointer;
-    /* Icon */
-    &:hover {
-      background: darken($midnight, 10%);
-    }
-    &::after {
-      content: "\276F";
-      width: 1em;
-      height: 1em;
-      text-align: center;
-      transition: all .35s;
-    }
-  }
-  &-content {
-    max-height: 0;
-    padding: 0 1em;
-    color: $midnight;
-    background: white;
-    transition: all .35s;
-  }
-  &-close {
-    display: flex;
-    justify-content: flex-end;
-    padding: 1em;
-    font-size: 0.75em;
-    background: $midnight;
-    cursor: pointer;
-    &:hover {
-      background: darken($midnight, 10%);
-    }
-  }
+
+.wrap-input{
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  margin-bottom: 26px;
+  box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.12);
+  width: 300px;
+
 }
 
-// :checked
-input:checked {
-  + .tab-label {
-    background: darken($midnight, 10%);
-    &::after {
-      transform: rotate(90deg);
-    }
-  }
-  ~ .tab-content {
-    max-height: 100vh;
-    padding: 1em;
-  }
+.input{
+  display:block;
+  width: 100%;
+  background: transparent;
+  font-size: 16px;
+  line-height: 1.2;
+  border: none;
+  outline: none;
+  height: 46px;
+  padding: 0 20px 0 23px;
+}
+
+.container-form-btn{
+  display: flex;
+  justify-content: center;
+}
+.dat{
+  padding: 13px;
+}
+.form-btn{
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  min-width: 160px;
+  height: 42px;
+  background-color: #394752;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #ffffff;
+  text-transform: uppercase;
+  transition: all 0.4s;
+  box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.5);
+}
+
+.form-btn:hover {
+  background-color: #28333b;
+  box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.8);
+}
+.contesea{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

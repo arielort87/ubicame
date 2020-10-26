@@ -16,7 +16,7 @@ export class MapasPage implements OnInit {
     this.markdores = []; 
     let token = localStorage.getItem('token');
     if(token != null){
-      this.reca(); 
+      this.traerVeh(); 
     }else{
       this.router.navigate(['/'])
     }
@@ -24,14 +24,12 @@ export class MapasPage implements OnInit {
   mapa:any
   traerVeh(){
     this.hubiCar.getPosCar().subscribe((data:any[])=>{
-      console.log(data);
-      var map = L.map('map').setView([data[0].trama["lat"], data[0].trama["log"]], 12);
+      var map = L.map('map').setView([data[0].trama["lat"], data[0].trama["log"]], 10);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
     this.mapa = map
       this.prinMarker(data)
-      console.log('traervehicul', data)
     })
   }
   busV = L.icon({
@@ -49,7 +47,7 @@ export class MapasPage implements OnInit {
   busA = L.icon({
     iconUrl: "../../../assets/images/marcadorbusA.png",
     iconSize:     [23, 28], // size of the icon
-    iconAnchor:   [7, 29], // point of the icon which will correspond to marker's location
+    iconAnchor:   [8, 29], // point of the icon which will correspond to marker's location
     popupAnchor:  [6, -29] // point from which the popup should open relative to the iconAnchor
   });
   busicon
@@ -77,18 +75,20 @@ export class MapasPage implements OnInit {
       }else{
         this.busicon = this.busA
       }
+      let kmh = parseInt(data[i].trama["kmh"].substr(4,3))
       let marker = L.marker([data[i].trama["lat"], data[i].trama["log"]], {icon: this.busicon}).addTo(this.mapa)
       .bindPopup(`<b>Interno: </b>${data[i].vehiculo["veh_interno"]}</br>
                   <b>Placa: </b>${data[i].vehiculo["veh_placa"]}</br>
                   <b>Fecha: </b>${ff}</br>
                   <b>Hora: </b>${data[i].trama["horsis"]}</br>
-                  <b>Km/h: </b>${data[i].trama["kmh"]}</br>`).openPopup();
+                  <b>Km/h: </b>${kmh}</br>`).openPopup();
       var r = arr.push(marker)
     }
     this.markdores = arr;
-    //var group = new L.FeatureGroup(this.markdores);
+    var group = new L.FeatureGroup(this.markdores);
 
-    //this.mapa.fitBounds(group.getBounds());
+    this.mapa.fitBounds(group.getBounds());
+    clearInterval(this.timerId);
     this.recargarfun()
   }
   async reca() {
@@ -98,19 +98,24 @@ export class MapasPage implements OnInit {
       duration: 2000
     });
     await loading.present();
-    this.traerVeh()
-    const { role, data } = await loading.onDidDismiss();
-  }
-  
-  recargarfun() {
-    setInterval(()=>{
     this.hubiCar.getPosCar().subscribe((data:any[])=>{
       this.prinMarker(data)
     },(error)=>{
       console.error(error);
       this.router.navigate(['/'])
     })
-    },3 * 100000);
+    const { role, data } = await loading.onDidDismiss();
+  }
+  timerId
+  recargarfun() {
+    this.timerId = setInterval(()=>{
+    this.hubiCar.getPosCar().subscribe((data:any[])=>{
+      this.prinMarker(data)
+    },(error)=>{
+      console.error(error);
+      this.router.navigate(['/'])
+    })
+    },300000);
   }
   toggleMenu(){
   this.menuCtrl.toggle();

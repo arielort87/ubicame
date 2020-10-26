@@ -20,5 +20,13 @@ export class InfouserService {
 
     return this.http.post("http://45.79.30.197/api/auth/signin", postData, { headers: headers })
   }
+
+  changePass(postData, user){
+    const headers = new HttpHeaders().set('Content-Type', 'application/json')
+                                    .set('Accept', 'application/json')
+                                    .set('Access-Control-Allow-Methods', 'PUT')
+
+    return this.http.put(`http://45.79.30.197/api/auth/signup/${user}`, postData, { headers: headers })
+  }
   
 }

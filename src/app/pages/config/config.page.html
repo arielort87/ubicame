@@ -1,24 +1,39 @@
-<app-header titulo="CONFIGURACIÓN"></app-header>
+<app-header titulo="Configuracion"></app-header>
 
 <ion-content> 
-    <div class="menu-header-bg"></div>
     <div class="header-content">        
       <ion-label>
-        <h2>Elvis</h2>
-        <p>Algarin</p>
+        <h2>{{name}}</h2>
+        <p>{{ape}}</p>
       </ion-label>
       <img src="../../../assets/images/user.png" alt="">
     </div>
 
 
-    <ion-list class="menu-items" lines="none">
-      <ion-menu-toggle>
-        <ion-item >
-          <ion-icon slot="start" name="settings-outline"></ion-icon>settings
-        </ion-item>
-      </ion-menu-toggle>
-      <ion-item class="active"> 
-        <ion-icon name="flash"></ion-icon>flashh
-      </ion-item>
-    </ion-list>
+    <div class="ion-padding cen">
+
+
+      <form [formGroup]="validationForm" (ngSubmit)="cambiar()" class="ion-padding">
+        <div class="wrap-input">
+          <div class="posmen" *ngFor="let error of errorMessages.passold">
+            <ng-container *ngIf="passold.hasError(error.type) && (passold.dirty || passold.touched)">
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+          <input class="input" formControlName="passold" type="password" name="passo" placeholder="Antigua contraseña">
+        </div>
+        <div class="wrap-input">
+          <div class="posmen" *ngFor="let error of errorMessages.passnew">
+            <ng-container *ngIf="passnew.hasError(error.type) && (passnew.dirty || passnew.touched)">
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+          <input class="input" formControlName="passnew" type="password" name="pass" placeholder="Nueva contraseña">
+        </div>
+  
+        <div class="container-form-btn">
+          <button type="submit" [disabled]="!validationForm" class="form-btn custom-font"><b>Cambiar</b></button>
+        </div>
+      </form>
+    </div>
 </ion-content>

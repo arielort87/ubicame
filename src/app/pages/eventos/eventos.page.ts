@@ -51,5 +51,7 @@ export class EventosPage implements OnInit {
     }, 1000);
   }
 
+  fecha: Date = new Date;
+
 
 }
