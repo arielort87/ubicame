@@ -6,16 +6,12 @@ import { InicioPage } from './inicio.page';
 const routes: Routes = [
     {
       path:'',
-      redirectTo:'eventos' 
+      redirectTo:'home' 
     },
     {
     path: '',
     component: InicioPage,
     children:[
-      {
-        path: 'eventos',
-        loadChildren: () => import('../eventos/eventos.module').then(m => m.EventosPageModule)
-      },
       {
         path: 'mapas',
         loadChildren: () => import('../mapas/mapas.module').then(m => m.MapasPageModule)
@@ -23,7 +19,12 @@ const routes: Routes = [
       {
         path: 'alertas',
         loadChildren: () => import('../alertas/alertas.module').then(m => m.AlertasPageModule)
-      },  
+      },
+      {
+        path: 'home',
+        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
+      },
+        
     ]
   }
 ];

@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import * as L from 'leaflet'
 import { AutosService } from 'src/app/services/autos.service';
 import { MenuController, LoadingController } from '@ionic/angular';
+import $ from "jquery";
 
 @Component({
   selector: 'app-mapas',
@@ -13,22 +14,25 @@ import { MenuController, LoadingController } from '@ionic/angular';
 export class MapasPage implements OnInit {
 
   constructor( private router:Router,private menuCtrl: MenuController,public loadingController: LoadingController , private hubiCar: AutosService ) { 
-    this.markdores = []; 
-    let token = localStorage.getItem('token');
-    if(token != null){
-      this.traerVeh(); 
+    if(this.markdores && this.markdores.length){
+     
     }else{
-      this.router.navigate(['/'])
+      this.traerVeh();
     }
+      
+
     }
   mapa:any
+  map: any
   traerVeh(){
+    $("#map-box").html(""); 
+    $("#map-box").html('<div id="map" style="height:100%; width: 100%;"></div>');
     this.hubiCar.getPosCar().subscribe((data:any[])=>{
-      var map = L.map('map').setView([data[0].trama["lat"], data[0].trama["log"]], 10);
+      this.map = L.map('map').setView([data[0].trama["lat"], data[0].trama["log"]], 10);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-    this.mapa = map
+    }).addTo(this.map);
+    this.mapa = this.map
       this.prinMarker(data)
     })
   }
@@ -92,6 +96,8 @@ export class MapasPage implements OnInit {
     this.recargarfun()
   }
   async reca() {
+    $("#map-box").html(""); 
+    $("#map-box").html('<div id="map" style="height:100%; width: 100%;"></div>');
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Espere...',
@@ -105,6 +111,10 @@ export class MapasPage implements OnInit {
       this.router.navigate(['/'])
     })
     const { role, data } = await loading.onDidDismiss();
+  }
+  limpiar(){
+    $("#map-box").html(""); 
+    $("#map-box").html('<div id="map" style="height:100%; width: 100%;"></div>');
   }
   timerId
   recargarfun() {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AutosService } from '../../services/autos.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-eventos',
@@ -8,31 +9,23 @@ import { AutosService } from '../../services/autos.service';
 })
 export class EventosPage implements OnInit {
 
-  constructor(private infAut:AutosService) { 
-    this.traerEvent();
+  constructor(private infAut:AutosService, public toastController: ToastController) { 
   }
-
-      ngOnInit() {
-        var acc = document.getElementsByClassName("accordion");
-    var i;
-
-    for (i = 0; i < acc.length; i++) {
-      acc[i].addEventListener("click", function() {
-        this.classList.toggle("active");
-        var panel = this.nextElementSibling;
-        if (panel.style.display === "block") {
-          panel.style.display = "none";
-        } else {
-          panel.style.display = "block";
-        }
-      });
-    }
-  }
+  visu:boolean = false
+      ngOnInit() {}
   eventos: any[];
-  traerEvent(){
-    this.infAut.getEvents("20201013","ST300UEX").subscribe((data:any[])=>{
-      this.eventos = data;
-      console.log(data);
+  traerEvent(fecha, veh){
+    this.infAut.getEvents(fecha, veh).subscribe((data:any[])=>{
+      
+      if(data.length == 0){
+        this.presentToast('no se encontraron registros en la base de datos para esta fecha')
+        this.eventos = []
+        this.visu = false;
+      }else{
+        this.eventos = data;
+        this.visu = true;
+      }
+      console.log(this.eventos)
     },
     (error)=>{
       console.error(error);
@@ -40,18 +33,29 @@ export class EventosPage implements OnInit {
     )
   }
 
-  data:any[] = Array(20)
+  
+  fecha;
+  vehicul
 
-  loadData(event){
-    console.log('cargando siguiente')
-    setTimeout(() => {
-      const  nuevoArr = Array(20)
-      this.data.push( ...nuevoArr );
-      event.target.complete();
-    }, 1000);
+  validarform(){
+    if(this.fecha != null){
+      if(this.vehicul != '' || this.vehicul != null){
+        let f = this.fecha
+        let cf = f.substr(0,10)
+        let cff = cf.replace('-', '')
+        this.traerEvent(cff.replace('-', ''), this.vehicul)
+      }else{this.presentToast('El vehiculo es un campo requerido')}
+    }else{this.presentToast('La fecha es un campo requerido')}
+    
   }
 
-  fecha: Date = new Date;
+  async presentToast(men) {
+    const toast = await this.toastController.create({
+      message: men,
+      duration: 1000
+    });
+    toast.present();
+  }
 
 
 }
