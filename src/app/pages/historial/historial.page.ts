@@ -35,7 +35,6 @@ export class HistorialPage implements OnInit {
     await modal.present();
     
     const { data } = await modal.onDidDismiss();
-    console.log(data)
     if(data.cancelar == 0){
       this.tramarc(data.dia, data.bus, data.hi, data.hf)
     }else{

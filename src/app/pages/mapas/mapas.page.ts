@@ -4,7 +4,6 @@ import {Router} from '@angular/router';
 import * as L from 'leaflet'
 import { AutosService } from 'src/app/services/autos.service';
 import { MenuController, LoadingController } from '@ionic/angular';
-import $ from "jquery";
 
 @Component({
   selector: 'app-mapas',
@@ -19,9 +18,8 @@ export class MapasPage implements OnInit {
   mapa:any
   map: any
   traerVeh(){
-    $("#map-box").html(""); 
-    $("#map-box").html('<div id="map" style="height:100%; width: 100%;"></div>');
     this.hubiCar.getPosCar().subscribe((data:any[])=>{
+      document.getElementById('map-box').innerHTML = "<div id='map' style='width: 100%; height: 100%;'></div>";
       this.map = L.map('map').setView([data[0].trama["lat"], data[0].trama["log"]], 10);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -108,7 +106,7 @@ export class MapasPage implements OnInit {
       console.error(error);
       this.router.navigate(['/'])
     })
-    },300000);
+    },500000);
   }
   toggleMenu(){
   this.menuCtrl.toggle();

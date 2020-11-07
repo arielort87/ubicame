@@ -40,8 +40,6 @@ export class ModhistorialPage implements OnInit {
         let hf2 = this.hf
         let chf = hf2.substr(11,8)
 
-        console.log(chi)
-
         this.modalCtrl.dismiss({
           cancelar: 0,
           bus: this.selecbus,

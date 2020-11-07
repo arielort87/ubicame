@@ -81,13 +81,11 @@ async presentLoading() {
         }
 
         this.seruser.user(datosuser).subscribe((data:any[])=>{
-          console.log(data)
           this.u = data["user"]
           localStorage.setItem("token",data['token'])
           localStorage.setItem("name",this.u["usu_nombre"])
           localStorage.setItem('ape',this.u["usu_apellidos"])
           localStorage.setItem('user',this.u["usu_login"])
-          console.log(data)
           this.presentToast(`Bienvenido ${this.u["usu_nombre"]} ${this.u["usu_apellidos"]}`)
           this.router.navigate(['/inicio'])
         },
