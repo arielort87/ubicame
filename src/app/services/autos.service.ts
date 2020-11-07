@@ -16,6 +16,10 @@ baseUrl = "http://45.79.30.197:3000/";
     return this.http.get(`${this.baseUrl}api/evento?tipo=${tipo}&limit=${limit}`);
   }
 
+  getubicacionveh(fecha, imei, hi, hf){
+    return this.http.get(`${this.baseUrl}api/trama?fecha=${fecha}&imei=${imei}&horai=${hi}&horaf=${hf}`);
+  }
+
   getPosCar(){
     const token = localStorage.getItem("token");
     const headers = new HttpHeaders().set('Content-Type', 'application/json')

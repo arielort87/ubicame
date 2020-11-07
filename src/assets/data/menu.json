@@ -3,5 +3,10 @@
         "icon": "person-circle-outline",
         "name": "Perfil",
         "redirecTo":"/config"
+    },
+    {
+        "icon": "analytics-outline",
+        "name": "Historial",
+        "redirecTo":"/historial"
     }
 ]

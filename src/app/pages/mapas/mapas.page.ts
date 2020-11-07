@@ -13,13 +13,7 @@ import $ from "jquery";
 })
 export class MapasPage implements OnInit {
 
-  constructor( private router:Router,private menuCtrl: MenuController,public loadingController: LoadingController , private hubiCar: AutosService ) { 
-    if(this.markdores && this.markdores.length){
-     
-    }else{
-      this.traerVeh();
-    }
-      
+  constructor( private router:Router,private menuCtrl: MenuController,public loadingController: LoadingController , private hubiCar: AutosService ) {       
 
     }
   mapa:any
@@ -96,25 +90,14 @@ export class MapasPage implements OnInit {
     this.recargarfun()
   }
   async reca() {
-    $("#map-box").html(""); 
-    $("#map-box").html('<div id="map" style="height:100%; width: 100%;"></div>');
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Espere...',
-      duration: 2000
+      duration: 3000
     });
     await loading.present();
-    this.hubiCar.getPosCar().subscribe((data:any[])=>{
-      this.prinMarker(data)
-    },(error)=>{
-      console.error(error);
-      this.router.navigate(['/'])
-    })
+    this.traerVeh();
     const { role, data } = await loading.onDidDismiss();
-  }
-  limpiar(){
-    $("#map-box").html(""); 
-    $("#map-box").html('<div id="map" style="height:100%; width: 100%;"></div>');
   }
   timerId
   recargarfun() {
@@ -131,7 +114,8 @@ export class MapasPage implements OnInit {
   this.menuCtrl.toggle();
   }
 
-  ngOnInit() {  
+  ngOnInit() { 
+      this.traerVeh();
   }
 
 }
