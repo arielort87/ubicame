@@ -12,7 +12,7 @@ import { MenuController, LoadingController } from '@ionic/angular';
 })
 export class MapasPage implements OnInit {
 
-  constructor( private router:Router,private menuCtrl: MenuController,public loadingController: LoadingController , private hubiCar: AutosService ) {}
+  constructor( private router:Router,private menuCtrl: MenuController,public loadingController: LoadingController , private hubiCar: AutosService ) {     }
   mapa:any
   map: any
   traerVeh(){
@@ -66,10 +66,12 @@ export class MapasPage implements OnInit {
         this.busicon = this.busR
       }else if (data[i].trama['indmod'] == 2){
         this.busicon = this.busV
-      }else{
+      }else if (data[i].trama['indmod'] == 3){
         this.busicon = this.busA
+      }else{
+        this.busicon = this.busR
       }
-      let kmh = parseInt(data[i].trama["kmh"].substr(4,3))
+      let kmh = parseInt(data[i].trama["kmh"])
       let marker = L.marker([data[i].trama["lat"], data[i].trama["log"]], {icon: this.busicon}).addTo(this.mapa)
       .bindPopup(`<b>Interno: </b>${data[i].vehiculo["veh_interno"]}</br>
                   <b>Placa: </b>${data[i].vehiculo["veh_placa"]}</br>
@@ -111,7 +113,7 @@ export class MapasPage implements OnInit {
   }
 
   ngOnInit() { 
-      this.traerVeh();
+    this.traerVeh();
   }
 
 }
