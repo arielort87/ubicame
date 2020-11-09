@@ -23,33 +23,37 @@ export class ModhistorialPage implements OnInit {
     });
   }
   selecbus = null
-  fecha = ""
-  hi = ""
-  hf = ""
+  fecha = null
+  hi = null
+  hf = null
   enviarInfo(){
     if(this.fecha != '' || this.fecha != null){
-      if(this.selecbus != '' || this.selecbus != undefined){
+      if(this.selecbus != '' || this.selecbus != null){
+        if(this.hi != '' || this.hi != null){
+          if(this.hf != '' || this.hf != null){
 
-        let f = this.fecha
-        let cf = f.substr(0,10)
-        let cff = cf.replace('-', '')
+            let f = this.fecha
+            let cf = f.substr(0,10)
+            let cff = cf.replace('-', '')
+    
+            let hi2 = this.hi
+            let chi = hi2.substr(11,8)
+    
+            let hf2 = this.hf
+            let chf = hf2.substr(11,8)
+    
+            this.modalCtrl.dismiss({
+              cancelar: 0,
+              bus: this.selecbus,
+              dia: cff.replace('-', ''),
+              hi: chi,
+              hf: chf
+            });
 
-        let hi2 = this.hi
-        let chi = hi2.substr(11,8)
-
-        let hf2 = this.hf
-        let chf = hf2.substr(11,8)
-
-        this.modalCtrl.dismiss({
-          cancelar: 0,
-          bus: this.selecbus,
-          dia: cff.replace('-', ''),
-          hi: chi,
-          hf: chf
-        });
-        
-      }else{this.presentToast('el campo fecha esun campo obligatorio')}
-    }else{this.presentToast('el campo fecha esun campo obligatorio')}
+          }else{this.presentToast('el campo hora final es un campo obligatorio')}
+        }else{this.presentToast('el campo hora inicial es un campo obligatorio')}        
+      }else{this.presentToast('el campo bus es un campo obligatorio')}
+    }else{this.presentToast('el campo fecha es un campo obligatorio')}
    
   }
 

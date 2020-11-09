@@ -12,9 +12,7 @@ import { MenuController, LoadingController } from '@ionic/angular';
 })
 export class MapasPage implements OnInit {
 
-  constructor( private router:Router,private menuCtrl: MenuController,public loadingController: LoadingController , private hubiCar: AutosService ) {       
-
-    }
+  constructor( private router:Router,private menuCtrl: MenuController,public loadingController: LoadingController , private hubiCar: AutosService ) {}
   mapa:any
   map: any
   traerVeh(){
