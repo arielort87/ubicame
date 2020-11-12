@@ -14,21 +14,21 @@
   <ion-list>
     <ion-item>
       <ion-label>Buses</ion-label>
-      <ion-select [(ngModel)]='selecbus' interface="action-sheet">
+      <ion-select [(ngModel)]='selecbus' id="selbus" interface="action-sheet">
         <ion-select-option *ngFor="let b of bus" value="{{b.vehiculo.veh_imeigps}}">{{ b.vehiculo.veh_placa }}</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
           <ion-label>Dia</ion-label>
-          <ion-datetime displayFormat="YYYY/MM/DD" min="1994-03-14" class="dat" placeholder='Fecha' cancelText='Cancelar' [(ngModel)]='fecha'></ion-datetime>
+          <ion-datetime displayFormat="YYYY/MM/DD" min="1994-03-14" class="dat" placeholder='Fecha' done-text='Aceptar' cancelText='Cancelar' [(ngModel)]='fecha'></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label>Hora inicial</ion-label>
-      <ion-datetime [(ngModel)]='hi' display-format="HH:mm" picker-format="HH:mm"></ion-datetime>
+      <ion-datetime [(ngModel)]='hi' display-format="HH:mm" done-text='Aceptar' cancelText='Cancelar' picker-format="HH:mm"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label>Hora final</ion-label>
-      <ion-datetime [(ngModel)]='hf' display-format="HH:mm" picker-format="HH:mm"></ion-datetime>
+      <ion-datetime [(ngModel)]='hf' display-format="HH:mm" done-text='Aceptar'cancelText='Cancelar'  picker-format="HH:mm"></ion-datetime>
     </ion-item>
   </ion-list>
   <div style="padding-left: 30px; padding-right:30px ;">

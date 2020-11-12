@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { AutosService } from 'src/app/services/autos.service';
 
@@ -9,9 +9,15 @@ import { AutosService } from 'src/app/services/autos.service';
 })
 export class ModhistorialPage implements OnInit {
 
+  @Input() selecbus;
+  @Input() fecha;
+  @Input() hi;
+  @Input() hf;
+
+
   constructor(private modalCtrl: ModalController, private buses: AutosService, public toastController: ToastController) { 
     this.buses.getPosCar().subscribe(data => {
-      this.bus = data
+      this.bus = data;
     })
   }
   bus: any
@@ -22,15 +28,19 @@ export class ModhistorialPage implements OnInit {
       cancelar: 1
     });
   }
-  selecbus = null
-  fecha = null
-  hi = null
-  hf = null
+   
+  placa
   enviarInfo(){
-    if(this.fecha != '' || this.fecha != null){
-      if(this.selecbus != '' || this.selecbus != null){
-        if(this.hi != '' || this.hi != null){
-          if(this.hf != '' || this.hf != null){
+    if(this.fecha != '' && this.fecha != null){
+      if(this.selecbus != null && this.selecbus != ''){
+        if(this.hi != '' && this.hi != null){
+          if(this.hf != '' && this.hf != null){
+            for (let i = 0; i < this.bus.length; i++) {
+              if(this.selecbus == this.bus[i].trama['idgps']){
+                this.placa = this.bus[i].vehiculo['veh_placa']
+              }
+              
+            }
 
             let f = this.fecha
             let cf = f.substr(0,10)
@@ -44,10 +54,15 @@ export class ModhistorialPage implements OnInit {
     
             this.modalCtrl.dismiss({
               cancelar: 0,
+              placa: this.placa,
               bus: this.selecbus,
               dia: cff.replace('-', ''),
               hi: chi,
-              hf: chf
+              hf: chf,
+              busc: this.selecbus,
+              diac: this.fecha,
+              hic: this.hi,
+              hfc: this.hf,
             });
 
           }else{this.presentToast('el campo hora final es un campo obligatorio')}

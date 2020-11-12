@@ -25,11 +25,21 @@ export class HistorialPage implements OnInit {
     });
     toast.present();
   }
-
+  d
+  b
+  i
+  f
+  placabus
   async abrBusc(){
     const modal = await this.modalCtrl.create({
       component: ModhistorialPage,
-      cssClass: 'my-custom-class'
+      cssClass: 'my-custom-class',
+      componentProps: {
+        selecbus:  this.b,
+        fecha: this.d,
+        hi:    this.i,
+        hf:    this.f
+      }
     })
   
     await modal.present();
@@ -37,8 +47,15 @@ export class HistorialPage implements OnInit {
     const { data } = await modal.onDidDismiss();
     if(data.cancelar == 0){
       this.tramarc(data.dia, data.bus, data.hi, data.hf)
+      this.d = data.diac
+      this.b = data.busc
+      this.i = data.hic
+      this.f = data.hfc
+      this.placabus = data.placa
+      console.log(data)
+
     }else{
-      this.presentToast('no seleeciono ningun valor')
+      this.presentToast('no selecciono ningun valor')
     }
     
   }
@@ -65,15 +82,42 @@ export class HistorialPage implements OnInit {
   busicon
   cant:number = 0
   a
+  km
   tramarc(fecha, imei, hi, hf){
-    this.serVeh.getubicacionveh(fecha, imei, hi, hf).subscribe(data  =>{
+    this.serVeh.getubicacionveh(fecha, imei, hi, hf).subscribe((data:any[])  =>{
       //var ne = []
-
-      this.a =data
+      console.log(data)
       //for(let e  = 0; e < 100; e++){
       //  var h = ne.push(data[e])
       //}
-      //console.log(ne)
+        let lat1 = 0;
+        let lon1 = 0;
+        let totDis = 0;
+        var d
+
+        for (let o = 0; o < data.length; o++) {
+          if(lat1 == 0 && lon1 == 0){
+            lat1 = data[o].lat;
+            lon1 = data[o].log;
+          }else{
+            let lat2 = data[o].lat;
+            let lon2 = data[o].log;
+    
+            var R = 6378.137;//Radio de la tierra en km
+            var dLat = this.rad(lat2 - lat1);
+            var dLong = this.rad(lon2 - lon1);
+            var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(this.rad(lat1)) * Math.cos(this.rad(lat2)) * Math.sin(dLong / 2) * Math.sin(dLong / 2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            d = R * c;
+            lat1 = data[o].lat;
+            lon1 = data[o].log;
+            totDis = totDis + d
+            
+          }
+        }
+        this.km = totDis.toFixed(3)
+        console.log(this.km)
+
       
 
       document.getElementById('map-box2').innerHTML = "<div id='map2' style='width: 100%; height: 100%;'></div>";
@@ -107,7 +151,10 @@ export class HistorialPage implements OnInit {
         }
         let marker = L.marker([this.dt[i].lat, this.dt[i].log], {icon: this.busicon}).addTo(this.mapa)
         .bindPopup(`<b>Indicador:${c} </b><br>
-                    <b>Hora: </b> ${this.dt[i].hora}`).openPopup();
+                    <b>Placa: </b> ${this.placabus}<br>
+                    <b>Fecha: </b> ${ff}<br>
+                    <b>Hora: </b> ${this.dt[i].hora}
+                    `).openPopup();
         var r = arr.push(marker)
       }
 
@@ -118,6 +165,8 @@ export class HistorialPage implements OnInit {
 
     })
   }
+  rad(x) {return x * Math.PI / 180;}
+
   
 
 }

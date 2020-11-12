@@ -28,6 +28,7 @@ baseUrl = "http://45.79.30.197:3000/";
     return this.http.get(this.baseUrl + 'api/vehiculo/localizacion', { headers: headers });
   }
 
-
-  //#ff5a5a
+  conDire(lat, long){
+    return this.http.get(`${this.baseUrl}api/trama/geocoder/reverse?lat=${lat}&lon=${long}`);
+  }
 }
