@@ -64,16 +64,6 @@ export class MapasPage implements OnInit {
       let dia = fecha.substr(6,2)
       let ff = anio +'-'+ mes +'-'+ dia
 
-      if(data[i].trama['indmod'] == 1 ){
-        this.busicon = this.busR
-      }else if (data[i].trama['indmod'] == 2){
-        this.busicon = this.busV
-      }else if (data[i].trama['indmod'] == 3){
-        this.busicon = this.busA
-      }else{
-        this.busicon = this.busR
-      }
-
       var km
       var f = new Date();
       var fechad = f.getFullYear() + "" + (f.getMonth() +1) + "" + f.getDate()
@@ -104,6 +94,15 @@ export class MapasPage implements OnInit {
           }
         }
         km = totDis.toFixed(3)
+        if(data[i].trama['indmod'] == 1 ){
+          this.busicon = this.busR
+        }else if (data[i].trama['indmod'] == 2){
+          this.busicon = this.busV
+        }else if (data[i].trama['indmod'] == 3){
+          this.busicon = this.busA
+        }else{
+          this.busicon = this.busR
+        }
         let marker = L.marker([data[i].trama["lat"], data[i].trama["log"]], {icon: this.busicon}).addTo(this.mapa)
         .bindPopup(`<b>Interno: </b>${data[i].vehiculo["veh_interno"]}</br>
                     <b>Placa: </b>${data[i].vehiculo["veh_placa"]}</br>
