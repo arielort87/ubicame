@@ -91,8 +91,8 @@ async presentLoading() {
         },
         (error)=>{
           this.e = error['error'];
-          //this.p = JSON.stringify(error);
           this.presentToast(this.e['error'].message);
+
           //this.presentToast(this.p);
         }
         )

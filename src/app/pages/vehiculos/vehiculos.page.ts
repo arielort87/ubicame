@@ -23,16 +23,6 @@ export class VehiculosPage implements OnInit {
       let ff = anio +'-'+ mes +'-'+ dia
       
 
-      if(data[i].trama['indmod'] == 1 ){
-        this.busicon = '../../../assets/images/br.png'
-      }else if (data[i].trama['indmod'] == 2){
-        this.busicon = '../../../assets/images/bv.png'
-      }else if (data[i].trama['indmod'] == 3){
-        this.busicon = '../../../assets/images/ba.png'
-      }else{
-        this.busicon = '../../../assets/images/br.png'
-      }
-      
       this.vehicul.conDire(data[i].trama['lat'], data[i].trama['log']).subscribe((datadir:any[])=>{
         var km
         var f = new Date();
@@ -63,6 +53,17 @@ export class VehiculosPage implements OnInit {
               
             }
           }
+
+          if(data[i].trama['indmod'] == 1 ){
+            this.busicon = '../../../assets/images/br.png'
+          }else if (data[i].trama['indmod'] == 2){
+            this.busicon = '../../../assets/images/bv.png'
+          }else if (data[i].trama['indmod'] == 3){
+            this.busicon = '../../../assets/images/ba.png'
+          }else{
+            this.busicon = '../../../assets/images/br.png'
+          }
+          
           km = totDis.toFixed(3)
           const aut = {
             icono: this.busicon,

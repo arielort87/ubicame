@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, } from '@angular/common/http';
 import { Componente } from '../interfaces/interfaces';
+import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class InfouserService {
                                     .set('Accept', 'application/json')
                                     .set('Access-Control-Allow-Methods', 'POST')
 
-    return this.http.post("http://45.79.30.197/api/auth/signin", postData, { headers: headers })
+    return this.http.post(`${environment.API_URL}/auth/signin`, postData, { headers: headers })
   }
 
   changePass(postData, user){
@@ -26,7 +27,7 @@ export class InfouserService {
                                     .set('Accept', 'application/json')
                                     .set('Access-Control-Allow-Methods', 'PUT')
 
-    return this.http.put(`http://45.79.30.197/api/auth/signup/${user}`, postData, { headers: headers })
+    return this.http.put(`${environment.API_URL}/auth/signup/${user}`, postData, { headers: headers })
   }
   
 }
