@@ -52,7 +52,6 @@ export class HistorialPage implements OnInit {
       this.i = data.hic
       this.f = data.hfc
       this.placabus = data.placa
-      console.log(data)
 
     }else{
       this.presentToast('no selecciono ningun valor')
@@ -86,7 +85,6 @@ export class HistorialPage implements OnInit {
   tramarc(fecha, imei, hi, hf){
     this.serVeh.getubicacionveh(fecha, imei, hi, hf).subscribe((data:any[])  =>{
       //var ne = []
-      console.log(data)
       //for(let e  = 0; e < 100; e++){
       //  var h = ne.push(data[e])
       //}
@@ -116,7 +114,6 @@ export class HistorialPage implements OnInit {
           }
         }
         this.km = totDis.toFixed(3)
-        console.log(this.km)
 
       
 

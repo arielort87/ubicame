@@ -78,7 +78,8 @@ export class MapasPage implements OnInit {
                   <b>Placa: </b>${data[i].vehiculo["veh_placa"]}</br>
                   <b>Fecha: </b>${ff}</br>
                   <b>Hora: </b>${data[i].trama["horsis"]}</br>
-                  <b>Km/h: </b>${kmh}</br>`).openPopup();
+                  <b>Km/h: </b>${kmh}</br>`
+                  ).openPopup();
       var r = arr.push(marker)
 
 
@@ -118,7 +119,7 @@ export class MapasPage implements OnInit {
       //this.router.navigate(['/'])
     //})
     this.traerVeh();
-    },300000);
+    },30000);
   }
   toggleMenu(){
   this.menuCtrl.toggle();
